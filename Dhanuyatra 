@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bargarh Dhanuyatra Guide</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        #map { height: 600px; width: 100%; border-radius: 15px; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f9; padding: 20px; }
+        .info { background: white; padding: 15px; margin-bottom: 10px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h1 { color: #d32f2f; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <h1>🚩 Bargarh Dhanuyatra Explorer</h1>
+    <div class="info">
+        <p>Explore <b>Mathura Nagari</b> and <b>Gopapura</b>. Follow the path of Shree Krishna and King Kansa across the city.</p>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Centering the map on Bargarh City
+        var map = L.map('map').setView([21.3320, 83.6231], 14);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Define the Sacred Locations
+        var locations = [
+            {
+                name: "Kansa Rajdarbar (Mathura)",
+                coords: [21.3340, 83.6210],
+                desc: "The Daily Market area where King Kansa holds his court."
+            },
+            {
+                name: "Gopapura (Ambapali)",
+                coords: [21.3250, 83.6050],
+                desc: "Where the Leela of Shree Krishna takes place."
+            },
+            {
+                name: "Yamuna River (Jeera River)",
+                coords: [21.3300, 83.6120],
+                desc: "The bridge connecting Mathura and Gopapura."
+            },
+            {
+                name: "Rangamahal",
+                coords: [21.3380, 83.6250],
+                desc: "Cultural stage at Nishamani High School field."
+            }
+        ];
+
+        // Add markers to the map
+        locations.forEach(function(loc) {
+            L.marker(loc.coords).addTo(map)
+                .bindPopup("<b>" + loc.name + "</b><br>" + loc.desc);
+        });
+
+        // Draw a path showing the journey
+        var path = L.polyline([
+            [21.3340, 83.6210], // Rajdarbar
+            [21.3300, 83.6120], // River
+            [21.3250, 83.6050]  // Gopapura
+        ], {color: 'red', weight: 5, opacity: 0.7, dashArray: '10, 10'}).addTo(map);
+        
+        path.bindTooltip("Path of Akrura / Krishna's Journey");
+    </script>
+</body>
+</html>
